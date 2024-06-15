@@ -19,7 +19,7 @@ class ImageViewModel: ObservableObject {
     guard let url = URL(string: urlString) else { return }
     Task {
       do {
-        let (data, response) = try await URLSession.shared.data(from: url)
+        let (data, _) = try await URLSession.shared.data(from: url)
         image = UIImage(data: data)
       } catch {
         image = nil
