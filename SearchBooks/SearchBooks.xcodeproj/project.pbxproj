@@ -177,6 +177,9 @@
 			dependencies = (
 			);
 			name = SearchBooks;
+			packageProductDependencies = (
+				38653AC62C1C08B700D61D4C /* SwiftUIIntrospect */,
+			);
 			productName = SearchBooks;
 			productReference = 38C2BA932C17243C00946D5C /* SearchBooks.app */;
 			productType = "com.apple.product-type.application";
@@ -249,6 +252,9 @@
 				Base,
 			);
 			mainGroup = 38C2BA8A2C17243C00946D5C;
+			packageReferences = (
+				38653AC52C1C08B700D61D4C /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
+			);
 			productRefGroup = 38C2BA942C17243C00946D5C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -630,6 +636,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		38653AC52C1C08B700D61D4C /* XCRemoteSwiftPackageReference "swiftui-introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/swiftui-introspect";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		38653AC62C1C08B700D61D4C /* SwiftUIIntrospect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 38653AC52C1C08B700D61D4C /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
+			productName = SwiftUIIntrospect;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		38C2BAA12C17243D00946D5C /* SearchBooks.xcdatamodeld */ = {
