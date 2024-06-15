@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 class ImageViewModel: ObservableObject {
   
   @Published var image: UIImage?
