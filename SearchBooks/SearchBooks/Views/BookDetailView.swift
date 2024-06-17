@@ -43,14 +43,12 @@ struct BookDetailView: View {
           }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .background(Color.green)
-//          .offset(y: -100)
+        .offset(y: -60)
       
-    }.background(Color.blue)
-//    .onAppear(perform: {
-//      bookDetailViewModel.fetchDetailData(id: book.isbn13)
-//    })
+    }
+    
   }
+  
 }
 
 #Preview {
