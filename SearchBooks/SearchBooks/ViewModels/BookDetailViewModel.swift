@@ -12,10 +12,7 @@ class BookDetailViewModel: ObservableObject {
   
   @Published var detailData: BookDetail?
   
-  var book : Book
-  
   init(book: Book) {
-    self.book = book
     self.fetchDetailData(id: book.isbn13)
   }
   
