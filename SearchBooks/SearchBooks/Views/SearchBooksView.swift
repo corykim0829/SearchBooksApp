@@ -11,8 +11,6 @@ struct SearchBooksView: View {
   
   @StateObject var viewModel = SearchBooksViewModel()
   
-  @State var fetchedBooks : [Book] = []
-  
   var body: some View {
     
     NavigationView {
