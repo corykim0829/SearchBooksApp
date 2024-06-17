@@ -54,11 +54,13 @@ struct SearchBooksView: View {
               ProgressView()
             }
             
+            if viewModel.hasNoNextPage {
+              Text("더 이상 검색 결과가 없어요.")
+            }
+            
             GeometryReader { reader -> Color in
               let minY = reader.frame(in: .global).minY
               let height = UIScreen.main.bounds.height / 1.3
-//              print("minY", minY)
-//              print("height", height)
               if minY < height {
                 DispatchQueue.main.async {
                   self.viewModel.fetchNextPage()

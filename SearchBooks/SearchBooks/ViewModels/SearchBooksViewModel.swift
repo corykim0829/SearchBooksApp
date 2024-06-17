@@ -17,6 +17,7 @@ class SearchBooksViewModel: ObservableObject {
   @Published var fetchedBooks: [Book]? = nil
   
   @Published var isFetchingNextPage = false
+  @Published var hasNoNextPage = false
   
   var searchCancellable: AnyCancellable? = nil
   
@@ -44,12 +45,17 @@ class SearchBooksViewModel: ObservableObject {
   }
   
   func fetchNextPage() {
-    guard !isFetchingNextPage && hasNextPage() else {
+    guard !isFetchingNextPage else {
       isFetchingNextPage = false
+      return
+    }
+    guard hasNextPage() else {
+      hasNoNextPage = true
       return
     }
     guard let response = response else { return }
     isFetchingNextPage = true
+    hasNoNextPage = false
     let currentPage = Int(response.page) ?? 1
     let repository = SearchBooksRepository()
     
