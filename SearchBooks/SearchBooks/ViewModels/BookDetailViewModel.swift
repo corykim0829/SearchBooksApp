@@ -11,16 +11,17 @@ import Foundation
 class BookDetailViewModel: ObservableObject {
   
   @Published var detailData: BookDetail?
+  let bookDetailRepository: BookDetailRepository
   
-  init(book: Book) {
+  init(book: Book, repository: BookDetailRepository = BookDetailRepository()) {
+    self.bookDetailRepository = repository
     self.fetchDetailData(id: book.isbn13)
   }
   
-  func fetchDetailData(id: String) {
-    let repo = BookDetailRepository()
+  private func fetchDetailData(id: String) {
     Task {
       do {
-        detailData = try await repo.fetchBookDetail(id: id)
+        detailData = try await bookDetailRepository.fetchBookDetail(id: id)
       } catch {
         print("book detail fetch error:", error)
       }
