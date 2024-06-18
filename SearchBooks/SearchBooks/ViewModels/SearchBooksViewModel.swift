@@ -21,7 +21,10 @@ class SearchBooksViewModel: ObservableObject {
   
   var searchCancellable: AnyCancellable? = nil
   
-  init() {
+  let searchBooksRepository: SearchBooksRepository
+  
+  init(repository: SearchBooksRepository = SearchBooksRepository()) {
+    self.searchBooksRepository = repository
     
     searchCancellable = $searchKeyword
       .removeDuplicates()
@@ -36,9 +39,8 @@ class SearchBooksViewModel: ObservableObject {
   }
   
   func searchBooks(keyword: String) {
-    let repository = SearchBooksRepository()
     Task {
-      let searchResponse = try await repository.fetchBooks(keyword: searchKeyword, page: 1)
+      let searchResponse = try await searchBooksRepository.fetchBooks(keyword: searchKeyword, page: 1)
       response = searchResponse
       fetchedBooks = searchResponse.books
     }
