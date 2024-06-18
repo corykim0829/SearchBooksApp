@@ -13,15 +13,26 @@ class ImageViewModel: ObservableObject {
   @Published var image: UIImage?
   
   init(urlString: String) {
-    fetchImage(urlString: urlString)
+    loadImage(urlString: urlString)
   }
   
-  private func fetchImage(urlString: String) {
+  private func loadImage(urlString: String) {
+    if let imageFromCache = ImageCacheManager.shared.getImageFromCache(key: urlString) {
+      self.image = imageFromCache
+      return
+    }
+    fetchImageFromURL(urlString: urlString)
+  }
+  
+  private func fetchImageFromURL(urlString: String) {
     guard let url = URL(string: urlString) else { return }
     Task {
       do {
         let (data, _) = try await URLSession.shared.data(from: url)
-        image = UIImage(data: data)
+        if let image = UIImage(data: data) {
+          self.image = image
+          ImageCacheManager.shared.saveImageCache(key: urlString, image: image)
+        }
       } catch {
         image = nil
       }
