@@ -5,11 +5,11 @@
 //  Created by Cory Kim on 6/11/24.
 //
 
-import Foundation
+import UIKit
 import Combine
 
 @MainActor
-class SearchBooksViewModel: ObservableObject {
+class SearchBooksViewModel: NSObject, ObservableObject {
   
   @Published var searchKeyword = ""
   
@@ -25,6 +25,7 @@ class SearchBooksViewModel: ObservableObject {
   
   init(repository: SearchBooksRepository = SearchBooksRepository()) {
     self.searchBooksRepository = repository
+    super.init()
     
     searchCancellable = $searchKeyword
       .removeDuplicates()
@@ -48,7 +49,6 @@ class SearchBooksViewModel: ObservableObject {
   
   func fetchNextPage() {
     guard !isFetchingNextPage else {
-      isFetchingNextPage = false
       return
     }
     guard hasNextPage() else {
@@ -62,6 +62,7 @@ class SearchBooksViewModel: ObservableObject {
     let repository = SearchBooksRepository()
     
     Task {
+      try await Task.sleep(nanoseconds: UInt64(1 * 1_000_000_000))
       let searchResponse = try await repository.fetchBooks(keyword: searchKeyword, page: currentPage + 1)
       self.response = searchResponse
       isFetchingNextPage = false
@@ -78,6 +79,19 @@ class SearchBooksViewModel: ObservableObject {
     
     let perPage = 10
     return page * perPage < total
+  }
+  
+}
+
+extension SearchBooksViewModel: UIScrollViewDelegate {
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    if scrollView.contentOffset.y > scrollView.contentSize.height - scrollView.frame.size.height {
+      DispatchQueue.main.async {
+        self.fetchNextPage()
+      }
+      
+    }
+    
   }
   
 }

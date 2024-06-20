@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftUIIntrospect
 
 struct SearchBooksView: View {
   
@@ -47,25 +48,12 @@ struct SearchBooksView: View {
               }
             }
             
-            // 다음 페이지 값 로딩뷰 처리
             if viewModel.isFetchingNextPage {
               ProgressView()
             }
             
             if viewModel.hasNoNextPage {
               Text("더 이상 검색 결과가 없어요.")
-            }
-            
-            GeometryReader { reader -> Color in
-              let minY = reader.frame(in: .global).minY
-              let height = UIScreen.main.bounds.height / 1.3
-              if minY < height {
-                DispatchQueue.main.async {
-                  self.viewModel.fetchNextPage()
-                }
-              }
-              
-              return Color.clear
             }
             
           }
@@ -79,6 +67,9 @@ struct SearchBooksView: View {
         }
         
       }
+      .introspect(.scrollView, on: .iOS(.v14, .v15, .v16, .v17), customize: { scrollView in
+        scrollView.delegate = viewModel
+      })
       .navigationTitle("IT 책 검색")
       
     }
