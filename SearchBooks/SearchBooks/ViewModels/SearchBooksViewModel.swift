@@ -59,11 +59,10 @@ class SearchBooksViewModel: NSObject, ObservableObject {
     isFetchingNextPage = true
     hasNoNextPage = false
     let currentPage = Int(response.page) ?? 1
-    let repository = SearchBooksRepository()
     
     Task {
       try await Task.sleep(nanoseconds: UInt64(1 * 1_000_000_000))
-      let searchResponse = try await repository.fetchBooks(keyword: searchKeyword, page: currentPage + 1)
+      let searchResponse = try await searchBooksRepository.fetchBooks(keyword: searchKeyword, page: currentPage + 1)
       self.response = searchResponse
       isFetchingNextPage = false
       fetchedBooks?.append(contentsOf: searchResponse.books)
