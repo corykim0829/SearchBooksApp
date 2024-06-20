@@ -12,6 +12,7 @@ struct BookDetailView: View {
   var book: Book
   
   @StateObject var bookDetailViewModel : BookDetailViewModel
+  @State private var isShowingPDFWebView = false
   
   init(book: Book) {
     self.book = book
@@ -38,9 +39,18 @@ struct BookDetailView: View {
                 Text("PDF")
                   .font(.system(size: 18, weight: .semibold))
                   .padding(.top, 20)
-                LazyVStack {
+                LazyVStack(spacing: 8) {
                   ForEach(pdf.sorted(by: <), id: \.key) { key, value in
-                    BookDetailPDFItemView(title: key, url: value)
+                    BookDetailPDFItemView(
+                      title: key,
+                      url: value,
+                      isShowingPDFWebView: $isShowingPDFWebView)
+                    .sheet(isPresented: $isShowingPDFWebView, onDismiss: {
+                      isShowingPDFWebView = false
+                    }, content: {
+                      PDFWebView(url: value, isShowingPDFWebView: $isShowingPDFWebView)
+                    })
+                    
                   }
                   
                 }
@@ -59,6 +69,9 @@ struct BookDetailView: View {
         .offset(y: -60)
       
     }
+//    .sheet(isPresented: $isShowingPDFWebView) {
+//      Text("TEST")
+//    }
     
   }
   
