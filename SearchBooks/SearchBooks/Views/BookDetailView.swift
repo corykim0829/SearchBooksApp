@@ -33,6 +33,19 @@ struct BookDetailView: View {
               Text("출판사: \(detailData.publisher)")
               Text(detailData.desc)
                 .font(.system(size: 14, weight: .regular))
+              
+              if let pdf = detailData.pdf {
+                Text("PDF")
+                  .font(.system(size: 18, weight: .semibold))
+                  .padding(.top, 20)
+                LazyVStack {
+                  ForEach(pdf.sorted(by: <), id: \.key) { key, value in
+                    BookDetailPDFItemView(title: key, url: value)
+                  }
+                  
+                }
+              }
+              
             }
             .padding(.top, 16)
             .padding(.leading, 16)
