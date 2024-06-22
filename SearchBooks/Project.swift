@@ -30,7 +30,7 @@ let project = Project(
         .target(
             name: "SearchBooksUITests",
             destinations: .iOS,
-            product: .unitTests,
+            product: .uiTests,
             bundleId: "cory.SearchBooksUITests",
             infoPlist: .default,
             sources: ["SearchBooks/UITests/**"],
