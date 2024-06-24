@@ -27,15 +27,5 @@ let project = Project(
             resources: [],
             dependencies: [.target(name: "SearchBooks")]
         ),
-        .target(
-            name: "SearchBooksUITests",
-            destinations: .iOS,
-            product: .uiTests,
-            bundleId: "cory.SearchBooksUITests",
-            infoPlist: .default,
-            sources: ["SearchBooks/UITests/**"],
-            resources: [],
-            dependencies: [.target(name: "SearchBooks")]
-        ),
     ]
 )
