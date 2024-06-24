@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct SearchBooksRepository {
+protocol SearchBooksRepositoryProtocol {
+  func fetchBooks(keyword: String, page: Int) async throws -> SearchBooksResponse
+}
+
+struct SearchBooksRepository: SearchBooksRepositoryProtocol {
   
   func fetchBooks(keyword: String, page: Int) async throws -> SearchBooksResponse {
     try await SearchBookAPI.shared.fetchBooks(searchKeyword: keyword, page: page)

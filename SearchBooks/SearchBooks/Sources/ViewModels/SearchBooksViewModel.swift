@@ -21,9 +21,9 @@ class SearchBooksViewModel: NSObject, ObservableObject {
   
   var searchCancellable: AnyCancellable? = nil
   
-  let searchBooksRepository: SearchBooksRepository
+  let searchBooksRepository: SearchBooksRepositoryProtocol
   
-  init(repository: SearchBooksRepository = SearchBooksRepository()) {
+  init(repository: SearchBooksRepositoryProtocol = SearchBooksRepository()) {
     self.searchBooksRepository = repository
     super.init()
     
@@ -70,7 +70,7 @@ class SearchBooksViewModel: NSObject, ObservableObject {
     
   }
   
-  private func hasNextPage() -> Bool {
+  func hasNextPage() -> Bool {
     guard let totalStr = response?.total, let total = Int(totalStr),
             let pageStr = response?.page, let page = Int(pageStr) else {
       return false
