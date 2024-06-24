@@ -60,12 +60,23 @@ Pods/
 Podfile.lock
 Podfile
 
-# Add this line if you want to avoid checking in source code from the Xcode workspace
+### Xcode Patch ###
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcworkspace/contents.xcworkspacedata
+**/xcshareddata/WorkspaceSettings.xcsettings
+
+### Tuist ###
+XCConfig/
+Tuist/Dependencies
+Derived/
 *.xcworkspace
-*.xcuserstate
+*.xcodeproj
+*.p12
+master.key
 
 # Code Injection
 # After new code Injection tools there's a generated folder /iOSInjectionProject
 # https://github.com/johnno1962/injectionforxcode
 iOSInjectionProject/
-
