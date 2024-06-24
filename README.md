@@ -8,8 +8,6 @@
 
 
 
-`SearchBooks` 디렉토리로 이동
-
 ```
 tuist install
 ```
