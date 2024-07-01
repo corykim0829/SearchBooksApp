@@ -1,11 +1,23 @@
 import SwiftUI
+import SearchBooksFeature
+import BookmarkFeature
 
 public struct SearchBooksAppView: View {
   public init() {}
   
   public var body: some View {
-    Text("Hello, World!")
-      .padding()
+    TabView {
+      SearchBooksFeatureView()
+        .tabItem {
+          Image(systemName: "doc.text.magnifyingglass")
+          Text("책 검색")
+        }
+      BookmarkFeatureView()
+        .tabItem {
+          Image(systemName: "star.fill")
+          Text("즐겨찾기")
+        }
+    }
   }
 }
 
