@@ -27,7 +27,9 @@ let project = Project(
       infoPlist: .extendingDefault(with: [:]),
       sources: ["Sources/**"],
       resources: [],
-      dependencies: []
+      dependencies: [
+        .external(name: "SwiftUIIntrospect")
+      ]
     ),
     .target(
       name: "SearchBooksFeatureTests",
