@@ -10,7 +10,7 @@ import Domain
 
 struct BookItemView: View {
   
-  var book: RemoteBookEntity
+  var book: Book
   
   var body: some View {
     HStack(alignment: .top, spacing: 4) {
@@ -23,8 +23,13 @@ struct BookItemView: View {
             object: nil,
             userInfo: ["book": book])
         } label: {
-          Image(systemName: "bookmark")
-            .tint(Color.black)
+          if book.isSaved {
+            Image(systemName: "bookmark.fill")
+              .tint(Color.black)
+          } else {
+            Image(systemName: "bookmark")
+              .tint(Color.black)
+          }
         }
         .padding(.leading, 4)
         .padding(.bottom, 4)
@@ -55,7 +60,7 @@ extension NSNotification.Name {
 
 struct BookItemView_Preview: PreviewProvider {
   
-  static let sampleBook = RemoteBookEntity(title: "책 제목입니다.", subtitle: "책에대한 설명입니다", isbn13: "", price: "$20", image: "", url: "")
+  static let sampleBook = Book(title: "책 제목입니다.", subtitle: "책에대한 설명입니다", isbn13: "", price: "$20", image: "", isSaved: true)
   
   static var previews: some View {
     BookItemView(book: sampleBook)

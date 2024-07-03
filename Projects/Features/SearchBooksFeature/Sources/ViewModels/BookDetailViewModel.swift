@@ -14,7 +14,7 @@ class BookDetailViewModel: ObservableObject {
   @Published var detailData: BookDetail?
   let bookDetailRepository: BookDetailRepository
   
-  init(book: RemoteBookEntity, repository: BookDetailRepository = BookDetailRepository()) {
+  init(book: Book, repository: BookDetailRepository = BookDetailRepository()) {
     self.bookDetailRepository = repository
     self.fetchDetailData(id: book.isbn13)
   }

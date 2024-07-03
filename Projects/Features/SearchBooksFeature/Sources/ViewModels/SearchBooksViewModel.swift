@@ -15,7 +15,7 @@ class SearchBooksViewModel: NSObject, ObservableObject {
   @Published var searchKeyword = ""
   
   var response: SearchBooksResponse? = nil
-  @Published var fetchedBooks: [RemoteBookEntity]? = nil
+  @Published var books: [Book]? = nil
   
   @Published var isFetchingNextPage = false
   @Published var hasNoNextPage = false
@@ -24,27 +24,70 @@ class SearchBooksViewModel: NSObject, ObservableObject {
   
   let searchBooksRepository: SearchBooksRepositoryProtocol
   
-  init(repository: SearchBooksRepositoryProtocol = SearchBooksRepository()) {
-    self.searchBooksRepository = repository
-    super.init()
+  let savedBookRepository: SavedBookRepository
+  
+  init(
+    searchBooksRepository: SearchBooksRepositoryProtocol = SearchBooksRepository(),
+    savedBookRepository: SavedBookRepository = DefaultSavedBookRepository()) {
+      self.searchBooksRepository = searchBooksRepository
+      self.savedBookRepository = savedBookRepository
+      super.init()
+      
+      searchCancellable = $searchKeyword
+        .removeDuplicates()
+        .debounce(for: 0.6, scheduler: RunLoop.main)
+        .sink(receiveValue: { string in
+          if string == "" {
+            self.books = nil
+          } else {
+            self.searchBooks(keyword: string)
+          }
+        })
+    }
+  
+  func toggleSavedBook(book: Book) {
+    if book.isSaved {
+      savedBookRepository.deleteBook(book: book)
+    } else {
+      savedBookRepository.saveBook(book: book)
+    }
     
-    searchCancellable = $searchKeyword
-      .removeDuplicates()
-      .debounce(for: 0.6, scheduler: RunLoop.main)
-      .sink(receiveValue: { string in
-        if string == "" {
-          self.fetchedBooks = nil
-        } else {
-          self.searchBooks(keyword: string)
-        }
-      })
+    // UPDATE Books
+    guard let books = books else {
+      return
+    }
+    let newBooks = books.map {
+      if $0.isbn13 == book.isbn13 {
+        return Book(
+          title: $0.title,
+          subtitle: $0.subtitle,
+          isbn13: $0.isbn13,
+          price: $0.price,
+          image: $0.image,
+          isSaved: !$0.isSaved)
+      } else {
+        return $0
+      }
+    }
+    
+    self.books = newBooks
   }
   
   func searchBooks(keyword: String) {
     Task {
       let searchResponse = try await searchBooksRepository.fetchBooks(keyword: searchKeyword, page: 1)
       response = searchResponse
-      fetchedBooks = searchResponse.books
+
+      books = searchResponse.books.map {
+        let isSaved = savedBookRepository.fetchSavedBook(byISBN13: $0.isbn13) != nil
+        return Book(
+          title: $0.title,
+          subtitle: $0.subtitle,
+          isbn13: $0.isbn13,
+          price: $0.price,
+          image: $0.image,
+          isSaved: isSaved)
+      }
     }
   }
   
@@ -66,7 +109,17 @@ class SearchBooksViewModel: NSObject, ObservableObject {
       let searchResponse = try await searchBooksRepository.fetchBooks(keyword: searchKeyword, page: currentPage + 1)
       self.response = searchResponse
       isFetchingNextPage = false
-      fetchedBooks?.append(contentsOf: searchResponse.books)
+      let nextPageBooks = searchResponse.books.map {
+        let isSaved = savedBookRepository.fetchSavedBook(byISBN13: $0.isbn13) != nil
+        return Book(
+          title: $0.title,
+          subtitle: $0.subtitle,
+          isbn13: $0.isbn13,
+          price: $0.price,
+          image: $0.image,
+          isSaved: isSaved)
+      }
+      books?.append(contentsOf: nextPageBooks)
     }
     
   }

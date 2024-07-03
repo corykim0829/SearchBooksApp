@@ -10,12 +10,12 @@ import Domain
 
 struct BookDetailView: View {
   
-  var book: RemoteBookEntity
+  var book: Book
   
   @StateObject var bookDetailViewModel : BookDetailViewModel
   @State private var isShowingPDFWebView = false
   
-  init(book: RemoteBookEntity) {
+  init(book: Book) {
     self.book = book
     self._bookDetailViewModel = StateObject(wrappedValue: BookDetailViewModel(book: book))
   }
@@ -79,6 +79,6 @@ struct BookDetailView: View {
 }
 
 #Preview {
-  let book = RemoteBookEntity(title: "TEST", subtitle: "test", isbn13: "123", price: "", image: "", url: "")
+  let book = Book(title: "TEST", subtitle: "test", isbn13: "123", price: "", image: "", isSaved: true)
   return BookDetailView(book: book)
 }

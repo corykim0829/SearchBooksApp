@@ -26,7 +26,7 @@ public struct SearchBooksFeatureView: View {
         }
         .padding(.vertical, 16)
         
-        if let books = viewModel.fetchedBooks {
+        if let books = viewModel.books {
           
           if books.isEmpty {
             Text("결과가 없습니다.")
@@ -68,8 +68,8 @@ public struct SearchBooksFeatureView: View {
       })
       .navigationTitle("IT 책 검색")
       .onReceive(NotificationCenter.default.publisher(for: .bookItemViewBookmarkButtonDidTap), perform: { notification in
-        if let book = notification.userInfo?["book"] as? RemoteBookEntity {
-          print("title:", book.title)
+        if let book = notification.userInfo?["book"] as? Book {
+          viewModel.toggleSavedBook(book: book)
         }
         
       })
