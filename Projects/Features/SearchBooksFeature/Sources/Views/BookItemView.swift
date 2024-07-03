@@ -13,8 +13,21 @@ struct BookItemView: View {
   
   var body: some View {
     HStack(alignment: .top, spacing: 4) {
-      ImageView(urlString: book.image)
-      .frame(width: 100, height: 120)
+      ZStack(alignment: .bottomLeading) {
+        ImageView(urlString: book.image)
+          .frame(width: 100, height: 120)
+        Button(action: {
+//          print(book.isbn13)
+          NotificationCenter.default.post(
+            name: .bookItemViewBookmarkTappedNotification,
+            object: book,
+            userInfo: ["isbn": book.isbn13])
+        }, label: {
+          Image(systemName: "star")
+        })
+        .padding(.leading, 4)
+        .padding(.bottom, 4)
+      }
       VStack(alignment: .leading) {
         VStack(alignment: .leading, spacing: 2) {
           Text(book.title)
@@ -32,6 +45,10 @@ struct BookItemView: View {
 
   }
   
+}
+
+extension NSNotification.Name {
+  static let bookItemViewBookmarkTappedNotification = NSNotification.Name("bookItemViewBookmarkTappedNotification")
 }
 
 struct BookItemView_Preview: PreviewProvider {

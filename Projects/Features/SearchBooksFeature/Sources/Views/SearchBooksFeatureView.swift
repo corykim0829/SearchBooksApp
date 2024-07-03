@@ -66,6 +66,12 @@ public struct SearchBooksFeatureView: View {
         scrollView.delegate = viewModel
       })
       .navigationTitle("IT 책 검색")
+      .onReceive(NotificationCenter.default.publisher(
+        for: .bookItemViewBookmarkTappedNotification), perform: { notification in
+          guard let isbn13 = notification.userInfo?["isbn"] as? String else { return }
+          viewModel.addBookmark(isbn13: isbn13)
+          
+      })
       
     }
     

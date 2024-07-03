@@ -23,6 +23,8 @@ class SearchBooksViewModel: NSObject, ObservableObject {
   
   let searchBooksRepository: SearchBooksRepositoryProtocol
   
+  let bookmarkRepository = BookmarkRepository()
+  
   init(repository: SearchBooksRepositoryProtocol = SearchBooksRepository()) {
     self.searchBooksRepository = repository
     super.init()
@@ -39,11 +41,26 @@ class SearchBooksViewModel: NSObject, ObservableObject {
       })
   }
   
+  func addBookmark(isbn13: String) {
+    bookmarkRepository.addBookmark(isbn13: isbn13)
+    
+    //print("bookmark DB", bookmarkRepository.fetchAllBookmarks())
+  }
+  
+  func deleteBookmark(isbn13: String) {
+    bookmarkRepository.removeBookmark(isbn13: isbn13)
+  }
+  
   func searchBooks(keyword: String) {
     Task {
       let searchResponse = try await searchBooksRepository.fetchBooks(keyword: searchKeyword, page: 1)
       response = searchResponse
       fetchedBooks = searchResponse.books
+//      var remoteBooks = searchResponse.books
+//      var localBooks = someFavoriteLocalRepo.books
+      
+      // id를 기준으로 합치기 -> 모델 또는 튜플
+//      [(북, 좋아요 여부)]
     }
   }
   

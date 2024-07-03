@@ -26,9 +26,12 @@ let project = Project(
       bundleId: "cory.SearchBooks.SearchBooksFeature",
       infoPlist: .extendingDefault(with: [:]),
       sources: ["Sources/**"],
-      resources: [],
+      resources: [], 
       dependencies: [
         .external(name: "SwiftUIIntrospect")
+      ], 
+      coreDataModels: [
+        .coreDataModel("CoreData/BookmarkDB.xcdatamodeld")
       ]
     ),
     .target(
@@ -41,5 +44,6 @@ let project = Project(
       resources: [],
       dependencies: [.target(name: "SearchBooksFeature")]
     ),
-  ]
+  ],
+  resourceSynthesizers: .default + [.coreData()]
 )
