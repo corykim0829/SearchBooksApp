@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Domain
 
 @MainActor
 class BookDetailViewModel: ObservableObject {

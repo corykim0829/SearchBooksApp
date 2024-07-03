@@ -10,7 +10,8 @@ let packageSettings = PackageSettings(
   // productTypes: ["Alamofire": .framework,]
   productTypes: [
     "SwiftUIIntrospect": .framework,
-    "Realm": .framework
+    "Realm": .framework,
+    "RealmSwift": .framework
   ]
 )
 #endif

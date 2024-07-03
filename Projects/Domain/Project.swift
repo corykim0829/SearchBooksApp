@@ -12,7 +12,8 @@ let project = Project(
       sources: ["Sources/**"],
       resources: [],
       dependencies: [
-        .external(name: "Realm")
+        .external(name: "Realm"),
+        .external(name: "RealmSwift")
       ]
     )
   ]

@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import Domain
 
 @MainActor
 class SearchBooksViewModel: NSObject, ObservableObject {
