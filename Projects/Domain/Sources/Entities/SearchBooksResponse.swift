@@ -11,5 +11,5 @@ public struct SearchBooksResponse: Decodable {
   public let error: String
   public let total: String
   public let page: String
-  public let books: [Book]
+  public let books: [RemoteBookEntity]
 }

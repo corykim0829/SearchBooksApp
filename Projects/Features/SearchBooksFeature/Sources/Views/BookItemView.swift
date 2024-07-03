@@ -10,12 +10,26 @@ import Domain
 
 struct BookItemView: View {
   
-  var book: Book
+  var book: RemoteBookEntity
   
   var body: some View {
     HStack(alignment: .top, spacing: 4) {
-      ImageView(urlString: book.image)
-      .frame(width: 100, height: 120)
+      ZStack(alignment: .bottomLeading) {
+        ImageView(urlString: book.image)
+          .frame(width: 100, height: 120)
+        Button {
+          NotificationCenter.default.post(
+            name: .bookItemViewBookmarkButtonDidTap,
+            object: nil,
+            userInfo: ["book": book])
+        } label: {
+          Image(systemName: "bookmark")
+            .tint(Color.black)
+        }
+        .padding(.leading, 4)
+        .padding(.bottom, 4)
+      }
+      
       VStack(alignment: .leading) {
         VStack(alignment: .leading, spacing: 2) {
           Text(book.title)
@@ -35,9 +49,13 @@ struct BookItemView: View {
   
 }
 
+extension NSNotification.Name {
+  static let bookItemViewBookmarkButtonDidTap = NSNotification.Name("bookItemViewBookmarkButtonDidTap")
+}
+
 struct BookItemView_Preview: PreviewProvider {
   
-  static let sampleBook = Book(title: "책 제목입니다.", subtitle: "책에대한 설명입니다", isbn13: "", price: "$20", image: "", url: "")
+  static let sampleBook = RemoteBookEntity(title: "책 제목입니다.", subtitle: "책에대한 설명입니다", isbn13: "", price: "$20", image: "", url: "")
   
   static var previews: some View {
     BookItemView(book: sampleBook)

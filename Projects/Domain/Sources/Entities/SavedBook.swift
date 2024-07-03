@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 public class SavedBook: Object {
-  @Persisted(primaryKey: true) var id: String
+  @Persisted(primaryKey: true) var isbn13: String
   @Persisted var title: String
   @Persisted var subtitle: String
   @Persisted var price: String

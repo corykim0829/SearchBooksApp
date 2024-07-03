@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftUIIntrospect
+import Domain
 
 public struct SearchBooksFeatureView: View {
   
@@ -66,6 +67,12 @@ public struct SearchBooksFeatureView: View {
         scrollView.delegate = viewModel
       })
       .navigationTitle("IT 책 검색")
+      .onReceive(NotificationCenter.default.publisher(for: .bookItemViewBookmarkButtonDidTap), perform: { notification in
+        if let book = notification.userInfo?["book"] as? RemoteBookEntity {
+          print("title:", book.title)
+        }
+        
+      })
       
     }
     

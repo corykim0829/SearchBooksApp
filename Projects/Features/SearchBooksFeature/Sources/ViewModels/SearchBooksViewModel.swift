@@ -15,7 +15,7 @@ class SearchBooksViewModel: NSObject, ObservableObject {
   @Published var searchKeyword = ""
   
   var response: SearchBooksResponse? = nil
-  @Published var fetchedBooks: [Book]? = nil
+  @Published var fetchedBooks: [RemoteBookEntity]? = nil
   
   @Published var isFetchingNextPage = false
   @Published var hasNoNextPage = false
