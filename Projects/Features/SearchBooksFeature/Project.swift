@@ -29,6 +29,7 @@ let project = Project(
       resources: [],
       dependencies: [
         .project(target: "Core", path: "../../Core"),
+        .project(target: "Data", path: "../../Data"),
         .external(name: "SwiftUIIntrospect")
       ]
     ),
