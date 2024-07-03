@@ -15,3 +15,15 @@ tuist install
 ```
 tuist generate
 ```
+
+
+
+### Tuist Graph
+
+![tuist graph](https://github.com/corykim0829/SearchBooksApp/blob/main/graph.png?raw=true)
+
+---
+
+
+
+### Data
