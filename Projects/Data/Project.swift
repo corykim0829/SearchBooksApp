@@ -12,7 +12,9 @@ let project = Project(
       sources: ["Sources/**"],
       resources: [],
       dependencies: [
-        .project(target: "Domain", path: "../Domain")
+        .project(target: "Domain", path: "../Domain"),
+        .external(name: "Realm"),
+        .external(name: "RealmSwift")
       ]
     ),
   ]

@@ -1,12 +1,13 @@
 //
 //  SavedBookRepository.swift
-//  Domain
+//  Data
 //
-//  Created by Cory Kim on 7/3/24.
+//  Created by Cory Kim on 7/4/24.
 //
 
 import Foundation
 import RealmSwift
+import Domain
 
 public protocol SavedBookRepository {
   func fetchAllSavedBooks() -> Results<SavedBook>
