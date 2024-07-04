@@ -1,8 +1,8 @@
 //
 //  ImageCacheManager.swift
-//  SearchBooks
+//  DesignKit
 //
-//  Created by Cory Kim on 6/18/24.
+//  Created by Cory Kim on 7/4/24.
 //
 
 import UIKit

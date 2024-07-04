@@ -1,26 +1,26 @@
 //
 //  BookDetailView.swift
-//  SearchBooks
+//  DesignKit
 //
-//  Created by Cory Kim on 6/13/24.
+//  Created by Cory Kim on 7/4/24.
 //
 
 import SwiftUI
 import Domain
 
-struct BookDetailView: View {
+public struct BookDetailView: View {
   
   var book: Book
   
   @StateObject var bookDetailViewModel : BookDetailViewModel
   @State private var isShowingPDFWebView = false
   
-  init(book: Book) {
+  public init(book: Book) {
     self.book = book
     self._bookDetailViewModel = StateObject(wrappedValue: BookDetailViewModel(book: book))
   }
   
-  var body: some View {
+  public var body: some View {
     
     ScrollView(.vertical) {
         VStack {

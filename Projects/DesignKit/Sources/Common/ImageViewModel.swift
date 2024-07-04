@@ -1,8 +1,8 @@
 //
 //  ImageViewModel.swift
-//  SearchBooks
+//  DesignKit
 //
-//  Created by Cory Kim on 6/15/24.
+//  Created by Cory Kim on 7/4/24.
 //
 
 import UIKit
@@ -41,3 +41,4 @@ class ImageViewModel: ObservableObject {
   }
   
 }
+

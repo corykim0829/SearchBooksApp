@@ -1,18 +1,18 @@
 import ProjectDescription
 
 let project = Project(
-  name: "Core",
+  name: "DesignKit",
   targets: [
     .target(
-      name: "Core",
+      name: "DesignKit",
       destinations: .iOS,
       product: .framework,
-      bundleId: "cory.SearchBooks.Core",
+      bundleId: "cory.SearchBooks.DesignKit",
       infoPlist: .extendingDefault(with: [:]),
       sources: ["Sources/**"],
-      resources: [],
+      resources: ["Resources/**"],
       dependencies: [
-        .project(target: "Data", path: "../Data"),
+        .project(target: "Domain", path: "../Domain")
       ]
     ),
   ]

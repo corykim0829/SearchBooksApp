@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import Domain
 @testable import SearchBooksFeature
 
 final class SearchBooksViewModelTests: XCTestCase {
@@ -13,7 +14,7 @@ final class SearchBooksViewModelTests: XCTestCase {
   var sut: SearchBooksViewModel!
   
   struct SearchBooksRepositorySpy: SearchBooksRepositoryProtocol {
-    func fetchBooks(keyword: String, page: Int) async throws -> SearchBooksFeature.SearchBooksResponse {
+    func fetchBooks(keyword: String, page: Int) async throws -> SearchBooksResponse {
       try await Task.sleep(nanoseconds: 2_000_000_000)
       return SearchBooksResponse(error: "", total: "", page: "", books: [])
     }

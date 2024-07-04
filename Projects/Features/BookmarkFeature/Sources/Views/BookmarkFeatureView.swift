@@ -13,7 +13,11 @@ public struct BookmarkFeatureView: View {
         if bookmarkBooksViewModel.books.count > 0 {
           LazyVStack {
             ForEach(bookmarkBooksViewModel.books, id: \.isbn13) { book in
-              Text(book.title)
+              NavigationLink {
+                Text(book.title)
+              } label: {
+                Text(book.title)
+              }
             }
           }
         } else {

@@ -1,18 +1,24 @@
 //
 //  BookItemView.swift
-//  SearchBooks
+//  DesignKit
 //
-//  Created by Cory Kim on 6/11/24.
+//  Created by Cory Kim on 7/4/24.
 //
 
 import SwiftUI
 import Domain
 
-struct BookItemView: View {
+public struct BookItemView: View {
   
   var book: Book
   
-  var body: some View {
+//  var bookmarkButtonAction: (Book) -> Void
+  
+  public init(book: Book) {
+    self.book = book
+  }
+  
+  public var body: some View {
     HStack(alignment: .top, spacing: 4) {
       ZStack(alignment: .bottomLeading) {
         ImageView(urlString: book.image)
@@ -55,7 +61,7 @@ struct BookItemView: View {
 }
 
 extension NSNotification.Name {
-  static let bookItemViewBookmarkButtonDidTap = NSNotification.Name("bookItemViewBookmarkButtonDidTap")
+  public static let bookItemViewBookmarkButtonDidTap = NSNotification.Name("bookItemViewBookmarkButtonDidTap")
 }
 
 struct BookItemView_Preview: PreviewProvider {
