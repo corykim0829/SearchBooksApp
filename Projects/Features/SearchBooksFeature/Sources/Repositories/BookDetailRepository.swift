@@ -10,7 +10,7 @@ import Domain
 
 struct BookDetailRepository {
   
-  func fetchBookDetail(id: String) async throws -> BookDetail {
+  func fetchBookDetail(id: String) async throws -> RemoteBookDetailEntity {
     try await SearchBookAPI.shared.fetchDetail(id: id)
   }
   

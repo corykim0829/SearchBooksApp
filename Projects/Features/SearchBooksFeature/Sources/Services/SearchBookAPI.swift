@@ -43,7 +43,7 @@ class SearchBookAPI {
     
   }
   
-  func fetchDetail(id: String) async throws -> BookDetail {
+  func fetchDetail(id: String) async throws -> RemoteBookDetailEntity {
     
     guard let url = URL(string: "\(hostURL)/books/\(id)") else {
       throw SearchBookAPIError.badURL
@@ -57,7 +57,7 @@ class SearchBookAPI {
     }
     
     do {
-      let detailData = try JSONDecoder().decode(BookDetail.self, from: data)
+      let detailData = try JSONDecoder().decode(RemoteBookDetailEntity.self, from: data)
       return detailData
     } catch {
       throw SearchBookAPIError.decodingError

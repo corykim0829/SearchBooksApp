@@ -76,11 +76,14 @@ struct BookDetailView: View {
         Button(action: {
           
         }, label: {
-          if book.isSaved {
-            Image(systemName: "bookmark.fill")
-          } else {
-            Image(systemName: "bookmark")
+          if let detailData = bookDetailViewModel.detailData {
+            if detailData.isSaved {
+              Image(systemName: "bookmark.fill")
+            } else {
+              Image(systemName: "bookmark")
+            }
           }
+          
         })
       }
     }
