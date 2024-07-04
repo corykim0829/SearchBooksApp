@@ -39,7 +39,7 @@ public struct SearchBooksFeatureView: View {
                 NavigationLink {
                   BookDetailView(book: book)
                 } label: {
-                  BookItemView(book: book)
+                  BookItemView(book: book, bookmarkButtonAction: handleBookmarkButtonAction)
                 }
                 .buttonStyle(PlainButtonStyle())
               }
@@ -68,17 +68,16 @@ public struct SearchBooksFeatureView: View {
         scrollView.delegate = viewModel
       })
       .navigationTitle("IT 책 검색")
-      .onReceive(NotificationCenter.default.publisher(for: .bookItemViewBookmarkButtonDidTap), perform: { notification in
-        if let book = notification.userInfo?["book"] as? Book {
-          viewModel.toggleSavedBook(book: book)
-        }
-      })
       .onAppear(perform: {
         viewModel.updateSavedBook()
       })
       
     }
     
+  }
+  
+  private func handleBookmarkButtonAction(book: Book) {
+    viewModel.toggleSavedBook(book: book)
   }
 }
 

@@ -12,10 +12,11 @@ public struct BookItemView: View {
   
   var book: Book
   
-//  var bookmarkButtonAction: (Book) -> Void
+  var bookmarkButtonAction: (Book) -> Void
   
-  public init(book: Book) {
+  public init(book: Book, bookmarkButtonAction: @escaping (Book) -> Void) {
     self.book = book
+    self.bookmarkButtonAction = bookmarkButtonAction
   }
   
   public var body: some View {
@@ -24,10 +25,7 @@ public struct BookItemView: View {
         ImageView(urlString: book.image)
           .frame(width: 100, height: 120)
         Button {
-          NotificationCenter.default.post(
-            name: .bookItemViewBookmarkButtonDidTap,
-            object: nil,
-            userInfo: ["book": book])
+          bookmarkButtonAction(book)
         } label: {
           if book.isSaved {
             Image(systemName: "bookmark.fill")
@@ -60,16 +58,12 @@ public struct BookItemView: View {
   
 }
 
-extension NSNotification.Name {
-  public static let bookItemViewBookmarkButtonDidTap = NSNotification.Name("bookItemViewBookmarkButtonDidTap")
-}
-
 struct BookItemView_Preview: PreviewProvider {
   
   static let sampleBook = Book(title: "책 제목입니다.", subtitle: "책에대한 설명입니다", isbn13: "", price: "$20", image: "", isSaved: true)
   
   static var previews: some View {
-    BookItemView(book: sampleBook)
+    BookItemView(book: sampleBook, bookmarkButtonAction: { _ in })
   }
   
 }
