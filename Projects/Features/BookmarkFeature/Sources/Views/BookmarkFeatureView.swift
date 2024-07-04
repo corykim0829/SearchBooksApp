@@ -16,7 +16,7 @@ public struct BookmarkFeatureView: View {
           LazyVStack(alignment: .leading) {
             ForEach(bookmarkBooksViewModel.books, id: \.isbn13) { book in
               NavigationLink {
-                Text(book.title)
+                BookDetailView(book: book)
               } label: {
                 BookItemView(book: book, bookmarkButtonAction: handleBookmarkButtonAction)
               }
