@@ -56,4 +56,10 @@ class BookmarkBooksViewModel: ObservableObject {
     }
   }
   
+  func toggleSavedBook(book: Book) {
+    guard book.isSaved else { return }
+    savedBookRepository.deleteBook(bookISBN13: book.isbn13)
+    fetchAllBooks()
+  }
+  
 }

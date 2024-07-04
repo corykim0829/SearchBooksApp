@@ -1,4 +1,6 @@
 import SwiftUI
+import Domain
+import DesignKit
 
 public struct BookmarkFeatureView: View {
   
@@ -11,13 +13,14 @@ public struct BookmarkFeatureView: View {
     NavigationView {
       ScrollView {
         if bookmarkBooksViewModel.books.count > 0 {
-          LazyVStack {
+          LazyVStack(alignment: .leading) {
             ForEach(bookmarkBooksViewModel.books, id: \.isbn13) { book in
               NavigationLink {
                 Text(book.title)
               } label: {
-                Text(book.title)
+                BookItemView(book: book, bookmarkButtonAction: handleBookmarkButtonAction)
               }
+              .buttonStyle(PlainButtonStyle())
             }
           }
         } else {
@@ -59,6 +62,10 @@ public struct BookmarkFeatureView: View {
       bookmarkBooksViewModel.fetchAllBooks()
     }
     
+  }
+  
+  private func handleBookmarkButtonAction(book: Book) {
+    bookmarkBooksViewModel.toggleSavedBook(book: book)
   }
 }
 
