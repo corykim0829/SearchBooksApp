@@ -23,12 +23,12 @@ class SearchBooksViewModel: NSObject, ObservableObject {
   
   var searchCancellable: AnyCancellable? = nil
   
-  let searchBooksRepository: SearchBooksRepositoryProtocol
+  let searchBooksRepository: SearchBooksRepository
   
   let savedBookRepository: SavedBookRepository
   
   init(
-    searchBooksRepository: SearchBooksRepositoryProtocol = SearchBooksRepository(),
+    searchBooksRepository: SearchBooksRepository = DefaultSearchBooksRepository(),
     savedBookRepository: SavedBookRepository = DefaultSavedBookRepository()) {
       self.searchBooksRepository = searchBooksRepository
       self.savedBookRepository = savedBookRepository
