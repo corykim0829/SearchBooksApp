@@ -21,6 +21,7 @@ struct BookDetailView: View {
   }
   
   var body: some View {
+    
     ScrollView(.vertical) {
         VStack {
           if let detailData = bookDetailViewModel.detailData {
@@ -70,15 +71,25 @@ struct BookDetailView: View {
         .offset(y: -60)
       
     }
-//    .sheet(isPresented: $isShowingPDFWebView) {
-//      Text("TEST")
-//    }
+    .toolbar {
+      ToolbarItem(placement: .topBarTrailing) {
+        Button(action: {
+          
+        }, label: {
+          if book.isSaved {
+            Image(systemName: "bookmark.fill")
+          } else {
+            Image(systemName: "bookmark")
+          }
+        })
+      }
+    }
     
   }
   
 }
 
 #Preview {
-  let book = Book(title: "TEST", subtitle: "test", isbn13: "123", price: "", image: "", isSaved: true)
+  let book = Book(title: "Securing DevOps", subtitle: "Security in the Cloud", isbn13: "9781617294136", price: "$26.98", image: "https://itbook.store/img/books/9781617294136.png", isSaved: true)
   return BookDetailView(book: book)
 }
