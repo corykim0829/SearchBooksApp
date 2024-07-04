@@ -31,6 +31,9 @@ public struct BookmarkFeatureView: View {
       }
       .navigationTitle("북마크")
       .navigationBarTitleDisplayMode(.large)
+      .onAppear {
+        bookmarkBooksViewModel.fetchAllBooks()
+      }
       .toolbar {
         ToolbarItem {
           Menu {
@@ -57,9 +60,6 @@ public struct BookmarkFeatureView: View {
           
         }
       }
-    }
-    .onAppear {
-      bookmarkBooksViewModel.fetchAllBooks()
     }
     
   }
