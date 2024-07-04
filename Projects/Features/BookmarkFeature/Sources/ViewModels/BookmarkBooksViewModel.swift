@@ -25,7 +25,7 @@ class BookmarkBooksViewModel: ObservableObject {
     }
   }
   
-  @Published var books: [BookmarkBook] = []
+  @Published var books: [Book] = []
   
   let savedBookRepository: SavedBookRepository
   
@@ -38,19 +38,20 @@ class BookmarkBooksViewModel: ObservableObject {
   
   func fetchAllBooks() {
     books = Array(savedBookRepository.fetchAllSavedBooks()).map {
-      BookmarkBook(
+      Book(
         title: $0.title,
         subtitle: $0.subtitle,
         isbn13: $0.isbn13,
         price: $0.price,
         image: $0.image,
+        isSaved: true,
         savedAt: $0.savedAt)
     }.sorted {
       switch currentSorting {
       case .latest:
-        return $0.savedAt > $1.savedAt
+        return $0.savedAt ?? Date() > $1.savedAt ?? Date()
       case .oldest:
-        return $0.savedAt < $1.savedAt
+        return $0.savedAt ?? Date() < $1.savedAt ?? Date()
       }
     }
   }

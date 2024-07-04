@@ -14,13 +14,15 @@ public struct Book {
   public let price: String
   public let image: String
   public let isSaved: Bool
+  public let savedAt: Date?
   
-  public init(title: String, subtitle: String, isbn13: String, price: String, image: String, isSaved: Bool) {
+  public init(title: String, subtitle: String, isbn13: String, price: String, image: String, isSaved: Bool, savedAt: Date? = nil) {
     self.title = title
     self.subtitle = subtitle
     self.isbn13 = isbn13
     self.price = price
     self.image = image
     self.isSaved = isSaved
+    self.savedAt = savedAt
   }
 }
