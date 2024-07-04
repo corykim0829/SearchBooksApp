@@ -71,7 +71,9 @@ public struct SearchBooksFeatureView: View {
         if let book = notification.userInfo?["book"] as? Book {
           viewModel.toggleSavedBook(book: book)
         }
-        
+      })
+      .onAppear(perform: {
+        viewModel.updateSavedBook()
       })
       
     }

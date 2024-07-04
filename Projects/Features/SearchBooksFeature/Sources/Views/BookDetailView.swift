@@ -74,7 +74,8 @@ struct BookDetailView: View {
     .toolbar {
       ToolbarItem(placement: .topBarTrailing) {
         Button(action: {
-          
+          guard let detailData = bookDetailViewModel.detailData else { return }
+          bookDetailViewModel.toggleSavedBook(bookDetail: detailData)
         }, label: {
           if let detailData = bookDetailViewModel.detailData {
             if detailData.isSaved {

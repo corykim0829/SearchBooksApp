@@ -13,7 +13,8 @@ public protocol SavedBookRepository {
   func fetchAllSavedBooks() -> Results<SavedBook>
   func fetchSavedBook(byISBN13: String) -> SavedBook?
   func saveBook(book: Book)
-  func deleteBook(book: Book)
+  func saveBook(bookDetail: BookDetail)
+  func deleteBook(bookISBN13: String)
 }
 
 public class DefaultSavedBookRepository: SavedBookRepository {
@@ -50,10 +51,24 @@ public class DefaultSavedBookRepository: SavedBookRepository {
     }
   }
   
-  public func deleteBook(book: Book) {
+  public func saveBook(bookDetail: BookDetail) {
+    let savedBook = SavedBook()
+    savedBook.isbn13 = bookDetail.isbn13
+    savedBook.title = bookDetail.title
+    savedBook.subtitle = bookDetail.subtitle
+    savedBook.price = bookDetail.price
+    savedBook.image = bookDetail.image
+    savedBook.savedAt = Date()
+    
+    try! realm.write {
+      realm.add(savedBook)
+    }
+  }
+  
+  public func deleteBook(bookISBN13 isbn13: String) {
     let book = realm.objects(SavedBook.self)
       .where {
-        $0.isbn13 == book.isbn13
+        $0.isbn13 == isbn13
       }
     
     do {

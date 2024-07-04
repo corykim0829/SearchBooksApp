@@ -48,7 +48,7 @@ class SearchBooksViewModel: NSObject, ObservableObject {
   
   func toggleSavedBook(book: Book) {
     if book.isSaved {
-      savedBookRepository.deleteBook(book: book)
+      savedBookRepository.deleteBook(bookISBN13: book.isbn13)
     } else {
       savedBookRepository.saveBook(book: book)
     }
@@ -69,6 +69,24 @@ class SearchBooksViewModel: NSObject, ObservableObject {
       } else {
         return $0
       }
+    }
+    
+    self.books = newBooks
+  }
+  
+  func updateSavedBook() {
+    guard let books = books else {
+      return
+    }
+    let newBooks = books.map {
+      let isSaved = savedBookRepository.fetchSavedBook(byISBN13: $0.isbn13) != nil
+      return Book(
+        title: $0.title,
+        subtitle: $0.subtitle,
+        isbn13: $0.isbn13,
+        price: $0.price,
+        image: $0.image,
+        isSaved: isSaved)
     }
     
     self.books = newBooks
