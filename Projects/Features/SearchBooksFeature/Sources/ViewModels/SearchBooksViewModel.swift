@@ -59,13 +59,14 @@ class SearchBooksViewModel: NSObject, ObservableObject {
     }
     let newBooks = books.map {
       if $0.isbn13 == book.isbn13 {
+        let isSaved = savedBookRepository.fetchSavedBook(byISBN13: book.isbn13) != nil
         return Book(
           title: $0.title,
           subtitle: $0.subtitle,
           isbn13: $0.isbn13,
           price: $0.price,
           image: $0.image,
-          isSaved: !$0.isSaved)
+          isSaved: isSaved)
       } else {
         return $0
       }
