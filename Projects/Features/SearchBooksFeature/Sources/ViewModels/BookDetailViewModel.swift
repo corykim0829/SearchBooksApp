@@ -18,7 +18,7 @@ class BookDetailViewModel: ObservableObject {
   
   init(
     book: Book,
-    bookDetailRepository: BookDetailRepository = BookDetailRepository(),
+    bookDetailRepository: BookDetailRepository = DefaultBookDetailRepository(),
     savedBookRepository: SavedBookRepository = DefaultSavedBookRepository()) {
       self.bookDetailRepository = bookDetailRepository
       self.savedBookRepository = savedBookRepository
