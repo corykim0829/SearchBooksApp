@@ -14,8 +14,8 @@ public struct SearchBooksAppView: View {
         }
       BookmarkFeatureView()
         .tabItem {
-          Image(systemName: "star.fill")
-          Text("즐겨찾기")
+          Image(systemName: "bookmark.fill")
+          Text("북마크")
         }
     }
   }

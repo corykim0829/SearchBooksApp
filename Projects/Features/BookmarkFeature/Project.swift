@@ -27,7 +27,10 @@ let project = Project(
       infoPlist: .extendingDefault(with: [:]),
       sources: ["Sources/**"],
       resources: [],
-      dependencies: []
+      dependencies: [
+        .project(target: "Core", path: "../../Core"),
+        .project(target: "Data", path: "../../Data"),
+      ]
     ),
     .target(
       name: "BookmarkFeatureTests",
