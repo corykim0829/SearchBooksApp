@@ -7,13 +7,14 @@
 
 import XCTest
 @testable import Domain
+@testable import Data
 @testable import SearchBooksFeature
 
 final class SearchBooksViewModelTests: XCTestCase {
   
   var sut: SearchBooksViewModel!
   
-  struct SearchBooksRepositorySpy: SearchBooksRepositoryProtocol {
+  struct SearchBooksRepositorySpy: SearchBooksRepository {
     func fetchBooks(keyword: String, page: Int) async throws -> SearchBooksResponse {
       try await Task.sleep(nanoseconds: 2_000_000_000)
       return SearchBooksResponse(error: "", total: "", page: "", books: [])
@@ -24,7 +25,7 @@ final class SearchBooksViewModelTests: XCTestCase {
   @MainActor
   override func setUpWithError() throws {
     // Put setup code here. This method is called before the invocation of each test method in the class.
-    sut = SearchBooksViewModel(repository: SearchBooksRepositorySpy())
+    sut = SearchBooksViewModel(searchBooksRepository: SearchBooksRepositorySpy())
   }
   
   override func tearDownWithError() throws {
